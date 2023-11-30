@@ -10,7 +10,7 @@ use polymesh_common_utilities::{
     MaybeBlock, SystematicIssuers,
 };
 use polymesh_primitives::{
-    identity_id::GenesisIdentityRecord, AccountId, Balance, HexAccountId, IdentityId, Moment,
+    identity_id::GenesisIdentityRecord, AccountId, Balance, IdentityId, Moment,
     PosRatio, SecondaryKey, Signatory, Signature, Ticker,
 };
 use sc_chain_spec::{ChainSpecExtension, ChainType};
@@ -38,13 +38,13 @@ const REWARDS_LOCK_HASH: &str =
     "0x1000000000000000000000000000000000000000000000000000000000000002";
 const KEY_LOCK_HASH: &str = "0x1000000000000000000000000000000000000000000000000000000000000003";
 
-const BOOTSTRAP_KEYS: u128 = 6_000 * ONE_POLY;
-const BOOTSTRAP_TREASURY: u128 = 17_500_000 * ONE_POLY;
+const BOOTSTRAP_KEYS: u128 = 0;
+const BOOTSTRAP_TREASURY: u128 = 0;
 
-const DEV_KEYS: u128 = 30_000_000 * ONE_POLY;
-const DEV_TREASURY: u128 = 50_000_000 * ONE_POLY;
+const DEV_KEYS: u128 = 0;
+const DEV_TREASURY: u128 = 0;
 
-const INITIAL_BOND: u128 = 500 * ONE_POLY;
+const INITIAL_BOND: u128 = 0;
 
 // 1 in 4 blocks (on average, not counting collisions) will be primary babe blocks.
 const PRIMARY_PROBABILITY: (u64, u64) = (1, 4);
@@ -572,8 +572,8 @@ macro_rules! committee {
 
 fn protocol_fees() -> Vec<(ProtocolOp, u128)> {
     vec![
-        (ProtocolOp::AssetCreateAsset, 2_500 * 1_000_000),
-        (ProtocolOp::AssetRegisterTicker, 500 * 1_000_000),
+        // (ProtocolOp::AssetCreateAsset, 2_500 * 1_000_000),
+        // (ProtocolOp::AssetRegisterTicker, 500 * 1_000_000),
     ]
 }
 
@@ -607,12 +607,13 @@ fn itn_rewards() -> Vec<(AccountId, Balance)> {
     #[cfg(feature = "runtime-benchmarks")]
     return Vec::new();
 
-    let itn_rewards_file = include_str!("data/itn_rewards.json");
-    serde_json::from_str::<Vec<(HexAccountId, Balance)>>(&itn_rewards_file)
-        .unwrap()
-        .into_iter()
-        .map(|(acc, bal)| (acc.0.into(), bal))
-        .collect()
+    // let itn_rewards_file = include_str!("data/itn_rewards.json");
+    // serde_json::from_str::<Vec<(HexAccountId, Balance)>>(&itn_rewards_file)
+    //     .unwrap()
+    //     .into_iter()
+    //     .map(|(acc, bal)| (acc.0.into(), bal))
+    //     .collect()
+    return Vec::new();
 }
 
 fn contracts_call_whitelist() -> Vec<polymesh_contracts::ExtrinsicId> {

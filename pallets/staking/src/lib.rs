@@ -1709,7 +1709,7 @@ decl_module! {
         ) {
             let stash = ensure_signed(origin)?;
 
-            ensure!(value >= T::MinimumBond::get(), Error::<T>::BondTooSmall);
+            // ensure!(value >= T::MinimumBond::get(), Error::<T>::BondTooSmall);
 
             if <Bonded<T>>::contains_key(&stash) {
                 Err(Error::<T>::AlreadyBonded)?

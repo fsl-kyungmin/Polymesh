@@ -596,27 +596,28 @@ where
         pays_fee: Pays,
         class: DispatchClass,
     ) -> FeeDetails<BalanceOf<T>> {
-        if pays_fee == Pays::Yes {
-            // the adjustable part of the fee.
-            let unadjusted_weight_fee = Self::weight_to_fee(weight);
-            let multiplier = Self::next_fee_multiplier();
-
-            // final adjusted weight fee.
-            let adjusted_weight_fee = multiplier.saturating_mul_int(unadjusted_weight_fee);
-
-            // length fee. this is adjusted via `LengthToFee`.
-            let len_fee = Self::length_to_fee(len);
-
-            let base_fee = Self::weight_to_fee(T::BlockWeights::get().get(class).base_extrinsic);
-            FeeDetails {
-                inclusion_fee: Some(InclusionFee {
-                    base_fee,
-                    len_fee,
-                    adjusted_weight_fee,
-                }),
-                tip,
-            }
-        } else {
+        // if pays_fee == Pays::Yes {
+        //     // the adjustable part of the fee.
+        //     let unadjusted_weight_fee = Self::weight_to_fee(weight);
+        //     let multiplier = Self::next_fee_multiplier();
+        //
+        //     // final adjusted weight fee.
+        //     let adjusted_weight_fee = multiplier.saturating_mul_int(unadjusted_weight_fee);
+        //
+        //     // length fee. this is adjusted via `LengthToFee`.
+        //     let len_fee = Self::length_to_fee(len);
+        //
+        //     let base_fee = Self::weight_to_fee(T::BlockWeights::get().get(class).base_extrinsic);
+        //     FeeDetails {
+        //         inclusion_fee: Some(InclusionFee {
+        //             base_fee,
+        //             len_fee,
+        //             adjusted_weight_fee,
+        //         }),
+        //         tip,
+        //     }
+        // } else
+        {
             FeeDetails {
                 inclusion_fee: None,
                 tip,
@@ -624,12 +625,12 @@ where
         }
     }
 
-    fn length_to_fee(length: u32) -> BalanceOf<T> {
-        let len = <BalanceOf<T>>::from(length);
-        let per_byte = T::TransactionByteFee::get();
-
-        per_byte.saturating_mul(len)
-    }
+    // fn length_to_fee(length: u32) -> BalanceOf<T> {
+    //     let len = <BalanceOf<T>>::from(length);
+    //     let per_byte = T::TransactionByteFee::get();
+    //
+    //     per_byte.saturating_mul(len)
+    // }
 
     fn weight_to_fee(weight: Weight) -> BalanceOf<T> {
         // cap the weight to the maximum defined in runtime, otherwise it will be the

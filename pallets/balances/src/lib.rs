@@ -651,7 +651,8 @@ impl<T: Config> Module<T> {
         memo: Option<Memo>,
         _existence_requirement: ExistenceRequirement,
     ) -> DispatchResult {
-        if value.is_zero() || transactor == dest {
+        // if value.is_zero() || transactor == dest {
+        if transactor == dest {
             return Ok(());
         }
 
